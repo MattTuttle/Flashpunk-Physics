@@ -24,12 +24,16 @@ package com.matttuttle
 		public var facing:uint = LEFT;
 		public var solid:String = "solid";
 		
-		public function Physics() 
+		public function PhysicsEntity()
 		{
 		}
 		
 		override public function update():void
 		{
+			onGround = false;
+			if (collide(solid, x, y + 1))
+				onGround = true;
+			
 			applyGravity();
 			applyAcceleration();
 			applyDrag();
