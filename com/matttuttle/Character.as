@@ -12,15 +12,14 @@ package com.matttuttle
 		{
 			x = _x;
 			y = _y;
-			
-			graphic = sprite;
-			setHitbox(32, 32);
-			
+
+			// Set hitbox and sprite here
+
 			// Set physics properties
 			gravity.y = 40;
 			maxVelocity.y = 600;
 			maxVelocity.x = 400;
-			drag.x = drag.y = 25;
+			drag.x = 25;
 			
 			// Define input keys
 			Input.define("left", Key.A, Key.LEFT);
