@@ -5,19 +5,19 @@ package net.flashpunk
 	import net.flashpunk.graphics.*;
 	import net.flashpunk.utils.*;
 	
-	public class Physics extends Entity
+	public class PhysicsEntity extends Entity
 	{
-		public static const LEFT:uint	= 0;
-		public static const RIGHT:uint	= 1;
-		public static const UP:uint		= 2;
-		public static const DOWN:uint	= 3;
+		public static const LEFT:uint  = 0;
+		public static const RIGHT:uint = 1;
+		public static const UP:uint    = 2;
+		public static const DOWN:uint  = 3;
 		
 		// Define variables
-		public var velocity:Point		= new Point(0, 0);
-		public var acceleration:Point	= new Point(0, 0);
-		public var drag:Point			= new Point(0, 0);
-		public var maxVelocity:Point	= new Point(0, 0);
-		public var gravity:Point		= new Point(0, 0);
+		public var velocity:Point      = new Point(0, 0);
+		public var acceleration:Point  = new Point(0, 0);
+		public var drag:Point          = new Point(0, 0);
+		public var maxVelocity:Point   = new Point(0, 0);
+		public var gravity:Point       = new Point(0, 0);
 		
 		public var onGround:Boolean = false;
 		public var onWall:Boolean = false;
