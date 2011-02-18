@@ -11,21 +11,21 @@ package com.matttuttle
 		
 		private var sprite:Spritemap = new Spritemap(Assets.GfxCharacter, 32, 32);
 		
-		private static const kMoveSpeed:uint = 5;
-		private static const kJumpForce:uint = 25;
+		private static const kMoveSpeed:uint = 2;
+		private static const kJumpForce:uint = 20;
 		
 		public function Character(x:int, y:int)
 		{
 			this.x = x;
 			this.y = y;
 			
-			sprite.add("right_idle", [0, 0, 0, 1], 0.1, true);
-			sprite.add("right_walk", [2, 3, 4], 0.25, true);
-			sprite.add("right_jump", [5]);
+			sprite.add("right_idle", [19, 19, 19, 20], 0.1, true);
+			sprite.add("right_walk", [0, 1, 2, 3, 4, 5, 6, 7], 0.25, true);
+			sprite.add("right_jump", [21]);
 			
-			sprite.add("left_idle", [6, 6, 6, 7], 0.1, true);
-			sprite.add("left_walk", [8, 9, 10], 0.25, true);
-			sprite.add("left_jump", [11]);
+			sprite.add("left_idle", [17, 17, 17, 16], 0.1, true);
+			sprite.add("left_walk", [15, 14, 13, 12, 11, 10, 9, 8], 0.25, true);
+			sprite.add("left_jump", [18]);
 
 			graphic = sprite;
 			setHitbox(32, 32);
@@ -34,7 +34,7 @@ package com.matttuttle
 			gravity.y = 2.6;
 			maxVelocity.y = kJumpForce;
 			maxVelocity.x = kMoveSpeed * 2;
-			friction.x = friction.y = 1.6;
+			friction.x = 0.7;
 			
 			// Define input keys
 			Input.define("left", Key.A, Key.LEFT);

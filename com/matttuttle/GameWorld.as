@@ -11,7 +11,7 @@ package com.matttuttle
 		{
 			FP.screen.color = 0x8EDFFA;
 			
-			add(new Character(0, 0));
+			add(new Character(FP.screen.width / 2, FP.screen.height - 64));
 			
 			// Fill with blocks
 			for (var i:int = 0; i < FP.screen.width / 32; i++)

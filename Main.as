@@ -9,7 +9,7 @@ package
 		
 		public function Main() 
 		{
-			super(480, 260, 30, true);
+			super(480, 200, 30, true);
 			FP.world = new GameWorld();
 		}
 		

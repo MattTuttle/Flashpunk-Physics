@@ -1,0 +1,6 @@
+bin/
+obj/
+*.as3proj
+.DS_Store
+Thumbs.db
+net/
