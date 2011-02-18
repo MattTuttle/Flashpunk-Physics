@@ -9,6 +9,8 @@ package com.matttuttle
 		
 		public function GameWorld()
 		{
+			FP.screen.color = 0x8EDFFA;
+			
 			add(new Character(0, 0));
 			
 			// Fill with blocks
