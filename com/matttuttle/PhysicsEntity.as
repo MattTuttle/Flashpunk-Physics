@@ -15,13 +15,12 @@ package com.matttuttle
 		// Define variables
 		public var velocity:Point      = new Point(0, 0);
 		public var acceleration:Point  = new Point(0, 0);
-		public var drag:Point          = new Point(0, 0);
+		public var friction:Point      = new Point(0, 0);
 		public var maxVelocity:Point   = new Point(0, 0);
 		public var gravity:Point       = new Point(0, 0);
 		
 		public var onGround:Boolean = false;
-		public var onWall:Boolean = false;
-		public var facing:uint = LEFT;
+		public var facing:uint = RIGHT;
 		public var solid:String = "solid";
 		
 		public function PhysicsEntity()
@@ -30,19 +29,22 @@ package com.matttuttle
 		
 		override public function update():void
 		{
+			applyAcceleration();
+			applyVelocity();
+			
 			onGround = false;
 			if (collide(solid, x, y + 1))
 				onGround = true;
 			
 			applyGravity();
-			applyAcceleration();
-			applyDrag();
-			applyVelocity();
+			applyFriction();
+			checkMaxVelocity();
 			super.update();
 		}
 		
 		public function applyGravity():void
 		{
+			//increase velocity based on gravity
 			velocity.x += gravity.x;
 			velocity.y += gravity.y;
 		}
@@ -81,39 +83,40 @@ package com.matttuttle
 			}
 		}
 		
-		private function applyDrag():void
+		private function applyFriction():void
 		{
+			// If we're on the ground, apply friction
 			if (onGround)
 			{
-				var d:Number = drag.x * FP.elapsed;
-				if (velocity.x - d > 0)
+				if (velocity.x > 0)
 				{
-					velocity.x -= d;
+					velocity.x -= friction.x;
+					if (velocity.x < 0)
+					{
+						velocity.x = 0;
+					}
 				}
-				else if (velocity.x + d < 0)
+				if (velocity.x < 0)
 				{
-					velocity.x += d;
-				}
-				else
-				{
-					velocity.x = 0;
+					velocity.x += friction.x;
+					if (velocity.x > 0)
+					{
+						velocity.x = 0;
+					}
 				}
 			}
-			
-			// Apply Y drag??
 		}
 		
 		private function applyVelocity():void
 		{
 			var i:int;
 			
-			checkMaxVelocity();
-			
-			for (i = 0; i < Math.abs(velocity.x * FP.elapsed); i++)
+			for (i = 0; i < Math.abs(velocity.x); i++)
 			{
 				if (collide(solid, x + FP.sign(velocity.x), y))
 				{
 					velocity.x = 0;
+					break;
 				}
 				else
 				{
@@ -121,11 +124,12 @@ package com.matttuttle
 				}
 			}
 			
-			for (i = 0; i < Math.abs(velocity.y * FP.elapsed); i++)
+			for (i = 0; i < Math.abs(velocity.y); i++)
 			{
 				if (collide(solid, x, y + FP.sign(velocity.y)))
 				{
 					velocity.y = 0;
+					break;
 				}
 				else
 				{
