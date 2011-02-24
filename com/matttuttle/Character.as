@@ -28,13 +28,14 @@ package com.matttuttle
 			sprite.add("left_jump", [18]);
 
 			graphic = sprite;
-			setHitbox(32, 32);
+			setHitbox(16, 32, -8);
 
 			// Set physics properties
 			gravity.y = 2.6;
 			maxVelocity.y = kJumpForce;
 			maxVelocity.x = kMoveSpeed * 2;
-			friction.x = 0.7;
+			friction.x = 0.7; // floor friction
+			friction.y = 2.0; // wall friction
 			
 			// Define input keys
 			Input.define("left", Key.A, Key.LEFT);
@@ -53,7 +54,10 @@ package com.matttuttle
 				acceleration.x = kMoveSpeed;
 			
 			if (Input.pressed("jump") && onGround)
-				acceleration.y = -kJumpForce;
+			{
+				acceleration.y = -FP.sign(gravity.y) * kJumpForce;
+				acceleration.x = -FP.sign(gravity.x) * kJumpForce;
+			}
 			
 			// Make animation changes here
 			setAnimation();
